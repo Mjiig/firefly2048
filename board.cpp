@@ -34,6 +34,7 @@ bool Board::move(int startx, int endx, int starty, int endy, int dx, int dy, int
         grid[tx+sx][ty+sy]++;
         merged[tx+sx][ty+sy]=true;
         grid[x][y]=0;
+        score+=values[grid[tx+sx][ty+sy]];
         moved=true;
       }else{
         int temp = grid[x][y]; //Save value in case we haven't moved
@@ -117,4 +118,8 @@ void Board::pretty_print(){
     }
     std::cout << "|" << std::endl << "---------------------"<< std::endl;
   }
+}
+
+int Board::getscore(){
+  return score;
 }

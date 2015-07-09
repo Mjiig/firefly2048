@@ -16,19 +16,19 @@ int main(){
     std::cin >> in;
     switch(in){
     case 'w':
-      std::cout << b.moveup() << std::endl;
+      b.moveup();
       moved=true;
       break;
     case 'a':
-      std::cout << b.moveleft() << std::endl;
+      b.moveleft();
       moved=true;
       break;
     case 's':
-      std::cout << b.movedown() << std::endl;
+      b.movedown();
       moved=true;
       break;
     case 'd':
-      std::cout << b.moveright() << std::endl;
+      b.moveright();
       moved=true;
       break;
     case 'q':
@@ -38,8 +38,16 @@ int main(){
 
     if(moved){
       b.pretty_print();
+      std::cout << b.getscore() << std::endl;
+    }
+
+    Board copy = b;
+    if(!copy.moveright() && !copy.moveleft() && !copy.moveup() && !copy.movedown()){ //This can definitely be done more efficiently
+      running = false;
     }
   }
+
+  std::cout << "You scored " << b.getscore() << " points" << std::endl; 
 
   return 0;
 }

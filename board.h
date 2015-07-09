@@ -23,6 +23,7 @@ class Board{
   bool moveup();
   bool movedown();
   void pretty_print();
+  int getscore();
 
 };
 
