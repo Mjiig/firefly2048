@@ -4,18 +4,38 @@
 #ifndef NEURON_H
 #define NEURON_H
 
+using std::shared_ptr;
+using std::unique_ptr;
+using std::vector;
+
 class Neuron{
+ public:
+  virtual double output()=0;
+  virtual void reset()=0;
+};
+
+class ComputedNeuron: public Neuron{
  private:
-  std::vector<std::shared_ptr<Neuron>> inputs;
-  std::vector<double> weights;
+  shared_ptr<vector<unique_ptr<Neuron>>> inputs;
+  vector<double> weights;
   double result;
   bool calculated;
 
  public:
-  Neuron(std::vector<std::shared_ptr<Neuron>> in, std::vector<double> w);
+  ComputedNeuron(shared_ptr<vector<unique_ptr<Neuron>>> in, vector<double> w);
   double output();
   void reset();
 };
 
+class InputNeuron: public Neuron{
+ private:
+  double value;
+
+ public:
+  void setvalue(double v);
+  InputNeuron(); 
+  double output(); 
+  void reset();
+};
 
 #endif
