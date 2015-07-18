@@ -5,7 +5,7 @@
 
 using std::shared_ptr;
 using std::unique_ptr;
-using std::vector; 
+using std::vector;
 
 ComputedNeuron::ComputedNeuron(shared_ptr<vector<unique_ptr<Neuron>>> in, vector<double> w){
   inputs = in;
