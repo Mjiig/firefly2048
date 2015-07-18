@@ -55,8 +55,23 @@ Network::Network(std::vector<double> weights){
 vector<double> Network::getCurrentWeights(int &start, int n, vector<double> weights){
   vector<double> ret;
   for(int i=start; i<start+n; i++){
-    ret.push_back(weights[i]);
+    ret.push_back(weights.at(i));
   }
   start+=n;
   return ret;
+}
+
+vector<double> Network::output(vector<double> invalues)
+{
+  for(int i=0; i<16; i++){
+    ((InputNeuron *)(inputs->at(i).get()))->setvalue(invalues.at(i));
+  }
+
+  vector<double> ret;
+  for(int i=0; i<4; i++){
+    ret.push_back(outputs->at(i)->output());
+  }
+
+  return ret;
+
 }

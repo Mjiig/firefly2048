@@ -19,7 +19,7 @@ class Network{
 
  public:
   Network(std::vector<double> weights);
-  double output();
+  vector<double> output(vector<double> inputs);
 };
 
 #endif
