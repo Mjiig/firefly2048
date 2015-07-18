@@ -24,6 +24,7 @@ class Board{
   bool movedown();
   void pretty_print();
   int getscore();
+  bool moveable();
 
 };
 

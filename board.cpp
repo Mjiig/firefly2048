@@ -103,6 +103,9 @@ Board::Board(){
     }
   }
   score=0;
+
+  add_piece();
+  add_piece();
 }
 
 void Board::pretty_print(){
@@ -122,4 +125,13 @@ void Board::pretty_print(){
 
 int Board::getscore(){
   return score;
+}
+
+bool Board::moveable(){
+  Board b(*this);
+
+  if(!b.moveleft() && !b.moveright() && !b.moveup() && !b.movedown()){
+    return false;
+  }
+  return true;
 }
