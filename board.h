@@ -25,6 +25,7 @@ class Board{
   void pretty_print();
   int getscore();
   bool moveable();
+  std::vector<double> getGrid();
 
 };
 

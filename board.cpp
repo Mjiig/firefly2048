@@ -135,3 +135,13 @@ bool Board::moveable(){
   }
   return true;
 }
+
+std::vector<double> Board::getGrid(){
+  std::vector<double> ret;
+  for(int x=0; x<4; x++){
+    for(int y=0; y<4; y++){
+      ret.push_back((double)grid[x][y]);
+    }
+  }
+  return ret;
+}
