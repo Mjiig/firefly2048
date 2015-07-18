@@ -1,4 +1,4 @@
-#include "randint.h"
+#include "rand.h"
 
 #ifndef BOARD_H
 #define BOARD_H
@@ -9,7 +9,7 @@ class Board{
 
   int grid[4][4];
   int score;
-  RandInt r;
+  Rand r;
 
   int get_new_piece();
   bool move(int startx, int endx, int starty, int endy, int dx, int dy, int sx, int sy);
