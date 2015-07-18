@@ -14,7 +14,7 @@ ComputedNeuron::ComputedNeuron(shared_ptr<vector<unique_ptr<Neuron>>> in, vector
 }
 
 double sigmoid(double x){
-  return 1.0/(1+std::exp(x));
+  return 1.0/(1+std::exp(-x));
 }
 
 double ComputedNeuron::output(){
