@@ -51,17 +51,11 @@ int human_2048(){
   return 0;
 }
 
-int main(){
-  std::vector<double> weights;
-  Rand r;
-
-  for(int i=0; i<4160; i++){
-    weights.push_back(r.getDouble(0.0, 1.0));
-  }
-
+int evaluateNetwork(std::vector<double> weights){
   Network n(weights);
+  int total = 0;
 
-  for(int j=0; j<1000; j++){
+  for(int j=0; j<100; j++){
 
     Board b;
     bool movemade=true;
@@ -79,7 +73,7 @@ int main(){
 
       for(int i=0; i<4; i++){
         if(outs[i]>outs[max]){
-            max=i;
+          max=i;
         }
       }
 
@@ -100,8 +94,91 @@ int main(){
       }
     }
 
-    std::cout << b.getscore() << std::endl;
+    total += b.getscore();
   }
+  return total/100;
+}
+
+std::vector<std::vector<double>> initialNetworks(){
+  Rand r;
+  std::vector<std::vector<double>> ret;
+
+  for(int i = 0; i<100; i++){
+    std::vector<double> current;
+    for(int j=0; j<4160; j++){
+      current.push_back(r.getDouble(0.0, 1.0));
+    }
+    ret.push_back(current);
+  }
+  return ret;
+}
+
+std::vector<int> evaluateSwarm(std::vector<std::vector<double>> networks){
+  std::vector<int> ret;
+  for(auto w: networks){
+    ret.push_back(evaluateNetwork(w));
+  }
+  return ret;
+}
+
+double getDistance(std::vector<double> a, std::vector<double> b){
+  double total=0.0;
+  for(size_t i=0; i<a.size(); i++){
+    total+=(a[i]-b[i])*(a[i]-b[i]);
+  }
+  return std::sqrt(total);
+}
+
+
+std::vector<std::vector<double>> updateSwarm(std::vector<std::vector<double>> swarm, std::vector<int> scores){
+  std::vector<std::vector<double>> ret = swarm;
+
+  for(size_t i=0; i<swarm.size(); i++){
+    for(size_t j=0; j<swarm.size(); j++){
+      if(scores[i]<scores[j]){
+        continue;
+      }
+
+      double distance = getDistance(swarm[i], swarm[j]);
+      for(size_t k=0; k<swarm[i].size(); k++){
+        ret[i][k]+=(swarm[j][k]-swarm[i][k])*std::exp(-distance);
+      }
+
+    }
+    //TODO: Add random deviation here
+  }
+  return ret;
+}
+
+double average(std::vector<int> scores){
+  double total = 0.0;
+  for(int x: scores){
+    total+=x;
+  }
+  return total/scores.size();
+}
+
+int max(std::vector<int> scores){
+  int best = 0;
+  for(int x: scores){
+    if(x>best){
+      best=x;
+    }
+  }
+  return best;
+}
+
+
+int main(){
+  std::vector<std::vector<double>> weights = initialNetworks();
+  std::vector<int> scores;
+
+  for(int i=0; i<1000; i++){
+    scores=evaluateSwarm(weights);
+    std::cout << max(scores) << "     " << average(scores) << std::endl;
+    weights = updateSwarm(weights, scores);
+  }
+
 
   return 0;
 }
