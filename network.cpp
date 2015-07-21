@@ -39,7 +39,6 @@ Network::Network(std::vector<double> weights){
       layer->push_back(std::move(n));
     }
 
-    neurons.push_back(layer);
     previous=layer;
   }
 
