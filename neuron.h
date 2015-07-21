@@ -12,6 +12,7 @@ class Neuron{
  public:
   virtual double output()=0;
   virtual void reset()=0;
+  virtual ~Neuron(){}; //Can't define the destructor as abstract since it needs behaviour. Doesn't matter than rule of 5 is broken since this class cannot be constructed
 };
 
 class ComputedNeuron: public Neuron{
