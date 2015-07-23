@@ -145,7 +145,12 @@ std::vector<std::vector<double>> updateSwarm(std::vector<std::vector<double>> sw
       }
 
     }
-    //TODO: Add random deviation here
+
+    Rand r;
+    std::vector<double> random=r.getUniformVector(swarm[i].size());
+    for(size_t j=0; j<swarm[i].size(); j++){
+      ret[i][j]+=random[j]/100;
+    }
   }
   return ret;
 }
