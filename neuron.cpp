@@ -33,11 +33,14 @@ double ComputedNeuron::output(){
   return result;
 }
 
-//Every neuron has to be reset explicitly
 void ComputedNeuron::reset(){
-  calculated=false;
+  if(calculated){
+    calculated=false;
+    for(size_t i=0; i<inputs->size(); i++){
+      inputs->at(i)->reset();
+    }
+  }
 }
-
 InputNeuron::InputNeuron(){
   value = 0.0;
 }

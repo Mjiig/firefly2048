@@ -62,7 +62,11 @@ vector<double> Network::getCurrentWeights(int &start, int n, vector<double> weig
 
 vector<double> Network::output(vector<double> invalues)
 {
-  for(int i=0; i<16; i++){
+  for(size_t i=0; i<outputs->size(); i++){
+    outputs->at(i)->reset();
+  }
+
+  for(size_t i=0; i<outputs->size(); i++){
     ((InputNeuron *)(inputs->at(i).get()))->setvalue(invalues.at(i));
   }
 
