@@ -55,7 +55,7 @@ int evaluateNetwork(std::vector<double> weights){
   Network n(weights);
   int total = 0;
 
-  for(int j=0; j<100; j++){
+  for(int j=0; j<50; j++){
 
     Board b;
     bool movemade=true;
@@ -96,7 +96,7 @@ int evaluateNetwork(std::vector<double> weights){
 
     total += b.getscore();
   }
-  return total/100;
+  return total/50;
 }
 
 std::vector<std::vector<double>> initialNetworks(){
@@ -172,13 +172,11 @@ int max(std::vector<int> scores){
 int main(){
   std::vector<std::vector<double>> weights = initialNetworks();
   std::vector<int> scores;
-
   for(int i=0; i<1000; i++){
     scores=evaluateSwarm(weights);
     std::cout << max(scores) << "     " << average(scores) << std::endl;
     weights = updateSwarm(weights, scores);
   }
-
 
   return 0;
 }
