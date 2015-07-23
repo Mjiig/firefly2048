@@ -10,6 +10,7 @@ class Rand{
   Rand();
   int getInt(int n);
   double getDouble(double mean, double stddev);
+  std::vector<double> getUniformVector(int len);
 };
 
 #endif
