@@ -1,4 +1,4 @@
-CXXFLAGS = -Wall -std=c++11
+CXXFLAGS = -Wall -std=c++11 -O3
 
 OBJECTS = rand.o board.o main.o neuron.o network.o
 
