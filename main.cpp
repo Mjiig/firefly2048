@@ -130,7 +130,7 @@ double getDistance(std::vector<double> a, std::vector<double> b){
 }
 
 
-std::vector<std::vector<double>> updateSwarm(std::vector<std::vector<double>> swarm, std::vector<int> scores){
+std::vector<std::vector<double>> updateSwarm(std::vector<std::vector<double>> swarm, std::vector<int> scores, double randScale){
   std::vector<std::vector<double>> ret = swarm;
 
   for(size_t i=0; i<swarm.size(); i++){
@@ -141,7 +141,7 @@ std::vector<std::vector<double>> updateSwarm(std::vector<std::vector<double>> sw
 
       double distance = getDistance(swarm[i], swarm[j]);
       for(size_t k=0; k<swarm[i].size(); k++){
-        ret[i][k]+=(swarm[j][k]-swarm[i][k])*std::exp(-distance);
+        ret[i][k]+=(swarm[j][k]-swarm[i][k])*std::exp(-5*distance);
       }
 
     }
@@ -149,7 +149,7 @@ std::vector<std::vector<double>> updateSwarm(std::vector<std::vector<double>> sw
     Rand r;
     std::vector<double> random=r.getUniformVector(swarm[i].size());
     for(size_t j=0; j<swarm[i].size(); j++){
-      ret[i][j]+=random[j]/100;
+      ret[i][j]+=random[j]*randScale;
     }
   }
   return ret;
@@ -177,10 +177,10 @@ int max(std::vector<int> scores){
 int main(){
   std::vector<std::vector<double>> weights = initialNetworks();
   std::vector<int> scores;
-  for(int i=0; i<1000; i++){
+  for(double scale=1.0; scale>0.0001; scale*=0.999){
     scores=evaluateSwarm(weights);
-    std::cout << max(scores) << "     " << average(scores) << std::endl;
-    weights = updateSwarm(weights, scores);
+    std::cout << max(scores) << "     " << average(scores) << "      " << scale << std::endl;
+    weights = updateSwarm(weights, scores, scale);
   }
 
   return 0;
