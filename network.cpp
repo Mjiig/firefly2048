@@ -66,12 +66,12 @@ vector<double> Network::output(vector<double> invalues)
     outputs->at(i)->reset();
   }
 
-  for(size_t i=0; i<outputs->size(); i++){
+  for(size_t i=0; i<inputs->size(); i++){
     ((InputNeuron *)(inputs->at(i).get()))->setvalue(invalues.at(i));
   }
 
   vector<double> ret;
-  for(int i=0; i<4; i++){
+  for(size_t i=0; i<outputs->size(); i++){
     ret.push_back(outputs->at(i)->output());
   }
 
